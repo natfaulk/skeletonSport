@@ -1,0 +1,22 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@natfaulk/supersimplelogger": "^1.0.2",
+    "@tensorflow-models/posenet": "^2.2.1",
+    "@tensorflow/tfjs-converter": "^2.0.1",
+    "@tensorflow/tfjs-core": "^2.0.1",
+    "@tensorflow/tfjs-node": "^2.0.1",
+    "electron": "^9.1.1",
+    "matter-js": "^0.14.2",
+    "mindrawingjs": "^1.1.0",
+    "stats.js": "^0.17.0"
+  }
+}

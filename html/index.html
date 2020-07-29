@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" /> -->
+    
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+  </head>
+  <body>
+    <canvas id="display"></canvas>
+    <video id="video" playsinline style="display: none;"></video>
+    <div id="lastFrame"></div>
+    <script>require('../src/index.js')</script>
+    <!-- <script>require('../src/gameEngine.js')</script> -->
+    <!-- <script>require('../src/gameEngine2.js')</script> -->
+  </body>
+</html>
