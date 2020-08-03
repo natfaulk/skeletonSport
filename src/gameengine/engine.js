@@ -13,6 +13,11 @@ const logger = require('@natfaulk/supersimplelogger')('Game Engine')
   let collisionCanvas = null
   let ball = null
   let CANVAS_SIZE = null
+
+  let score = {
+    t1: 0,
+    t2: 0
+  }
   
   let poses = []
 
@@ -60,8 +65,17 @@ const logger = require('@natfaulk/supersimplelogger')('Game Engine')
         Drawposes(collisionCanvas, poses)
 
         ball.tick((_time-lastTime)/1000, collisionCanvas, (prevFrame!==null)?prevFrame.data:null)
+        // goal scored
+        if (ball.x < 0) {
+          ++score.t2
+          ball.reset()
+        } else if (ball.x > CANVAS_SIZE.x) {
+          ++score.t1
+          ball.reset()
+        }
+
         prevFrame = collisionCanvas.ctx.getImageData(0, 0, CANVAS_SIZE.x, CANVAS_SIZE.y)
-        
+
         displayCanvas.ctx.drawImage(collisionCanvas.c, 0, 0)
         ball.draw(displayCanvas)  
       }

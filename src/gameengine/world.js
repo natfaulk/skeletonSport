@@ -4,8 +4,9 @@ const Utils = require('./utils')
 const logger = require('@natfaulk/supersimplelogger')('World')
 
 const WALL_THICKNESS = 50
-const NET_THICKNESS = 40
+const FLOOR_ANGLE = 5 // degrees
 const BALL_SIZE = 80
+const GOAL_HEIGHT = 2*BALL_SIZE
 const RESITUTION = 0.8
 const GRAVITY = 1000
 
@@ -19,15 +20,20 @@ const genScene = _canvasSize => {
   
   out.fill('red')
   out.stroke('red')
+  
+  // roof
+  out.rect(0, 0,_canvasSize.x, WALL_THICKNESS)
+    
+  // floor
+  out.rect(0, _canvasSize.y-WALL_THICKNESS,_canvasSize.x, WALL_THICKNESS)
+  let angRads = Math.PI*FLOOR_ANGLE/180
+  let heightOffset = Math.tan(angRads)*_canvasSize.x/2
+  out.rotatedRect(0, _canvasSize.y-(WALL_THICKNESS + heightOffset),_canvasSize.x*1.1,1.5*WALL_THICKNESS,angRads)
+  out.rotatedRect(0, _canvasSize.y-(WALL_THICKNESS - heightOffset),_canvasSize.x*1.1,1.5*WALL_THICKNESS,-angRads)
 
   // walls
-  out.rect(0, 0,_canvasSize.x, WALL_THICKNESS)
-  out.rect(0, _canvasSize.y-WALL_THICKNESS,_canvasSize.x, WALL_THICKNESS)
-  out.rect(0, 0,WALL_THICKNESS, _canvasSize.y)
-  out.rect(_canvasSize.x-WALL_THICKNESS, 0,WALL_THICKNESS, _canvasSize.y)
-
-  // net
-  out.rect(_canvasSize.x/2 - NET_THICKNESS/2,_canvasSize.y/2,NET_THICKNESS,_canvasSize.y/2)
+  out.rect(0, 0,WALL_THICKNESS, _canvasSize.y-(WALL_THICKNESS + heightOffset + GOAL_HEIGHT))
+  out.rect(_canvasSize.x-WALL_THICKNESS, 0,WALL_THICKNESS, _canvasSize.y-(WALL_THICKNESS + heightOffset + GOAL_HEIGHT))
 
   return out
 }
@@ -40,6 +46,17 @@ class Ball {
     this.canvasSize = _canvasSize
 
     this.size = BALL_SIZE
+  }
+
+  reset(_x, _y) {
+    if (_x === undefined || _y === undefined) {
+      this.x = this.canvasSize.x/2
+      this.y = this.canvasSize.y/2
+    } else {
+      this.x = _x
+      this.y = _y
+    }
+    this.vel = Utils.newPt()
   }
 
   tick(_dt, _canvas, _prevImData) {
@@ -122,13 +139,13 @@ class Ball {
     this.x += _dt*this.vel.x
     this.y += _dt*this.vel.y
 
-    if (this.x < 0) {
-      this.vel.x*=-1
-      this.x = 0
-    } else if (this.x > this.canvasSize.x) {
-      this.vel.x*=-1
-      this.x = this.canvasSize.x
-    }
+    // if (this.x < 0) {
+    //   this.vel.x*=-1
+    //   this.x = 0
+    // } else if (this.x > this.canvasSize.x) {
+    //   this.vel.x*=-1
+    //   this.x = this.canvasSize.x
+    // }
 
     if (this.y < 0) {
       this.vel.y*=-1
@@ -144,16 +161,16 @@ class Ball {
     _canvas.fill('blue')
     _canvas.ellipse(this.x, this.y, this.size)
 
-    let norm = Math.hypot(this.vel.x, this.vel.y)
-    _canvas.stroke('green')
-    _canvas.strokeWeight(5)
-    _canvas.line(
-      this.x,
-      this.y,
-      this.x+(this.size/2)*this.vel.x/norm,
-      this.y+(this.size/2)*this.vel.y/norm
-    )
-    _canvas.strokeWeight(1)
+    // let norm = Math.hypot(this.vel.x, this.vel.y)
+    // _canvas.stroke('green')
+    // _canvas.strokeWeight(5)
+    // _canvas.line(
+    //   this.x,
+    //   this.y,
+    //   this.x+(this.size/2)*this.vel.x/norm,
+    //   this.y+(this.size/2)*this.vel.y/norm
+    // )
+    // _canvas.strokeWeight(1)
   }
 }
 
