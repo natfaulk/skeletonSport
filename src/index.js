@@ -82,7 +82,7 @@ const VIDEO_SIZE = {
       })
     }
 
-    document.getElementById("lastFrame").innerText = (1000 / (Date.now() - lastTime)).toFixed(2)
+    // document.getElementById("lastFrame").innerText = (1000 / (Date.now() - lastTime)).toFixed(2)
     lastTime = Date.now()
     // stats.end()
     requestAnimationFrame(draw)

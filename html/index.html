@@ -9,7 +9,13 @@
     <link rel="stylesheet" type="text/css" href="../css/index.css">
   </head>
   <body>
-    <canvas id="display"></canvas>
+    <div id="outer">
+      <div class="spacer"></div>
+      <div>
+        <canvas id="display"></canvas>
+      </div>
+      <div class="spacer"></div>
+    </div>
     <video id="video" playsinline style="display: none;"></video>
     <div id="lastFrame"></div>
     <script>require('../src/index.js')</script>
