@@ -5,7 +5,7 @@ Originally created for Massey University's Engineering Experience Day. This is a
 The app runs as a desktop app using electron.  
 [NodeJS](https://nodejs.org/en/) needs to be installed. At last update I was using v14.17
 Download this repository `git clone https://github.com/natfaulk/skeletonSport`  
-Install the dependencies `npm install`  
+Install the dependencies (run from inside the skeletonsport folder) `npm install`  
 Run the app `npm start`  
 
 A few things to note:
